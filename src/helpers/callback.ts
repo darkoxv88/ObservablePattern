@@ -44,10 +44,8 @@ export class Callback implements IOnDestroy {
     try
     {
       if (typeof(this.fn) === 'function') {
-        return this.fn.apply(({ }), arguments);
+        return this.fn.apply(null, arguments);
       }
-
-      return void 0;
     }
     catch (err: any)
     {
@@ -59,7 +57,7 @@ export class Callback implements IOnDestroy {
         return this.onErrorFn(err);
       }
 
-      return void 0;
+      return (void 0);
     }
   }
 

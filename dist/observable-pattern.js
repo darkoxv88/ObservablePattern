@@ -96,9 +96,8 @@ class Callback {
     performCall(...args) {
         try {
             if (typeof (this.fn) === 'function') {
-                return this.fn.apply(({}), arguments);
+                return this.fn.apply(null, arguments);
             }
-            return void 0;
         }
         catch (err) {
             if (this.logError) {
@@ -107,13 +106,12 @@ class Callback {
             if (typeof (this.onErrorFn) === 'function') {
                 return this.onErrorFn(err);
             }
-            return void 0;
+            return (void 0);
         }
     }
 }
 
 ;// CONCATENATED MODULE: ./src/helpers/pipeline.ts
-
 class Pipe {
     constructor() {
         this._fnCallback = new Callback(true);
@@ -172,9 +170,6 @@ class Pipeline {
 }
 
 ;// CONCATENATED MODULE: ./src/core/observer.ts
-
-
-
 class Observer {
     constructor(observable, callOnSubscribe) {
         this._observable = observable;
@@ -238,8 +233,6 @@ class Observer {
 }
 
 ;// CONCATENATED MODULE: ./src/core/a-observable.ts
-
-
 class AObservable {
     constructor() {
         this._value = null;
@@ -303,7 +296,6 @@ class AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/behavior-subject.ts
-
 class BehaviorSubject extends AObservable {
     constructor(value) {
         super();
@@ -327,7 +319,6 @@ class BehaviorSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/promised-subject.ts
-
 class PromisedSubject extends AObservable {
     constructor() {
         super();
@@ -369,7 +360,6 @@ class PromisedSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/single-subject.ts
-
 class SingleSubject extends AObservable {
     constructor() {
         super();
@@ -398,7 +388,6 @@ class SingleSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/subject.ts
-
 class Subject extends AObservable {
     constructor() {
         super();
@@ -421,9 +410,6 @@ class Subject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/operators/debounce-time.ts
-
-
-
 class DebounceTimePipe extends Pipe {
     constructor(timeout) {
         super();
@@ -458,9 +444,6 @@ function debounceTime(timeout) {
 }
 
 ;// CONCATENATED MODULE: ./src/core/operators/delay.ts
-
-
-
 class DelayPipe extends Pipe {
     constructor(timeout) {
         super();
@@ -490,8 +473,6 @@ class Empty {
 }
 
 ;// CONCATENATED MODULE: ./src/core/operators/distinct-until-changed.ts
-
-
 class DistinctUntilChangedPipe extends Pipe {
     constructor() {
         super();
@@ -516,7 +497,6 @@ function distinctUntilChanged() {
 }
 
 ;// CONCATENATED MODULE: ./src/core/operators/filter.ts
-
 class FilterPipe extends Pipe {
     constructor() {
         super();
@@ -534,7 +514,6 @@ function filter(fn) {
 }
 
 ;// CONCATENATED MODULE: ./src/core/operators/map.ts
-
 class MapPipe extends Pipe {
     constructor() {
         super();
@@ -550,7 +529,6 @@ function map(fn) {
 }
 
 ;// CONCATENATED MODULE: ./src/api.ts
-
 class Operators {
 }
 Operators.debounceTime = debounceTime;
@@ -568,7 +546,6 @@ ObservablePattern.Subject = Subject;
 const Api = ObservablePattern;
 
 ;// CONCATENATED MODULE: ./src/index.js
-
 var libName = 'ObservablePattern';
 
 try
