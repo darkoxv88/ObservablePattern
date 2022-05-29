@@ -27,10 +27,6 @@ exports:
 
   window.ObservablePattern;
 
-backup:
-
-  window.___webpack_export_dp___.ObservablePattern;
-
 **/
 
 declare interface IOnDestroy {
