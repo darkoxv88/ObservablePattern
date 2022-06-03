@@ -30,7 +30,6 @@ exports:
 **/
 
 (() => {
-"use strict";
 
 ;// CONCATENATED MODULE: ./src/refs/root.ts
 var root = typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : ({});
@@ -42,6 +41,40 @@ function getRoot() {
 var production = true;
 function isProduction() {
     return production;
+}
+
+;// CONCATENATED MODULE: ./src/core/event-dispatcher.ts
+class EventDispatcher {
+    constructor() {
+        this.__listeners_ = ({});
+    }
+    addEventListener(type, listener) {
+        if (this.__listeners_[type] === undefined) {
+            this.__listeners_[type] = new Map();
+        }
+        if (typeof (this.__listeners_[type].get(listener)) !== 'function') {
+            this.__listeners_[type].set(listener, listener);
+        }
+    }
+    hasEventListener(type, listener) {
+        try {
+            return this.__listeners_[type].get(listener) ? true : false;
+        }
+        catch (err) {
+            return false;
+        }
+    }
+    removeEventListener(type, listener) {
+        if (this.hasEventListener(type, listener)) {
+            this.__listeners_[type].delete(listener);
+        }
+    }
+    dispatchEvent(type, event) {
+        const procs = this.__listeners_[type];
+        for (const proc of procs) {
+            proc[1].apply(null, [event]);
+        }
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/core/subscription.ts
@@ -61,7 +94,6 @@ class Subscription {
 function noop() { }
 
 ;// CONCATENATED MODULE: ./src/helpers/callback.ts
-
 class Callback {
     constructor(logError) {
         this.fn = noop;
@@ -533,6 +565,7 @@ Operators.filter = filter;
 Operators.map = map;
 class ObservablePattern {
 }
+ObservablePattern.EventDispatcher = EventDispatcher;
 ObservablePattern.Operators = Operators;
 ObservablePattern.BehaviorSubject = BehaviorSubject;
 ObservablePattern.PromisedSubject = PromisedSubject;
@@ -556,5 +589,4 @@ catch(err)
   console.error(err);
 }
 
-})()
-;
+})();

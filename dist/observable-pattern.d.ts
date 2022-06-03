@@ -44,6 +44,22 @@ declare interface ISubscription {
   unsubscribe(): void;
 }
 
+declare class EventDispatcher<T> {
+
+  private __listeners_: { [ key: string ]: Map<Function, <T>(e: T) => void> };
+
+  constructor();
+
+  public addEventListener(type: string, listener: <T>(e: T) => void): void;
+
+  public hasEventListener(type: string, listener: <T>(e: T) => void): boolean;
+
+  public removeEventListener(type: string, listener: <T>(e: T) => void): void;
+
+  public dispatchEvent(type: string, event: T): void;
+
+}
+
 declare abstract class Pipe<T> implements IOnDestroy {
 
   constructor();
@@ -147,17 +163,20 @@ declare class SingleSubject<T> extends AObservable<T> {
 }
 
 declare class Operators {
-  static debounceTime<T = any>(timeout: number): Pipe<T>;
-  static delay<T = any>(timeout: number): Pipe<T>;
-  static distinctUntilChanged<T = any>(): Pipe<T>;
-  static filter<T = any>(fn: (value: T) => boolean): Pipe<T>;
-  static map<T = any>(fn: (value: T) => T): Pipe<T>;
+  public static debounceTime<T = any>(timeout: number): Pipe<T>;
+  public static delay<T = any>(timeout: number): Pipe<T>;
+  public static distinctUntilChanged<T = any>(): Pipe<T>;
+  public static filter<T = any>(fn: (value: T) => boolean): Pipe<T>;
+  public static map<T = any>(fn: (value: T) => T): Pipe<T>;
 }
 
 export declare class ObservablePattern {
-  static Operators: typeof Operators;
-  static Subject: typeof Subject;
-  static BehaviorSubject: typeof BehaviorSubject;
-  static PromisedSubject: typeof PromisedSubject;
-  static SingleSubject: typeof SingleSubject;
+  public static EventDispatcher: typeof EventDispatcher;
+  public static Operators: typeof Operators;
+  public static Subject: typeof Subject;
+  public static BehaviorSubject: typeof BehaviorSubject;
+  public static PromisedSubject: typeof PromisedSubject;
+  public static SingleSubject: typeof SingleSubject;
 }
+
+
