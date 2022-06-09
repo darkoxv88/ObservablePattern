@@ -567,6 +567,7 @@ class ObservablePattern {
 }
 ObservablePattern.EventDispatcher = EventDispatcher;
 ObservablePattern.Operators = Operators;
+ObservablePattern.Subscription = Subscription;
 ObservablePattern.BehaviorSubject = BehaviorSubject;
 ObservablePattern.PromisedSubject = PromisedSubject;
 ObservablePattern.SingleSubject = SingleSubject;

@@ -173,6 +173,7 @@ declare class Operators {
 export declare class ObservablePattern {
   public static EventDispatcher: typeof EventDispatcher;
   public static Operators: typeof Operators;
+  public static Subscription: typeof Subscription;
   public static Subject: typeof Subject;
   public static BehaviorSubject: typeof BehaviorSubject;
   public static PromisedSubject: typeof PromisedSubject;
