@@ -1,6 +1,12 @@
 import { AObservable } from "./a-observable";
 
+const type = 'Subject';
+
 export class Subject<T> extends AObservable<T> {
+
+  public get type(): 'Subject' {
+    return type;
+  }
 
   constructor() {
     super();

@@ -30,6 +30,7 @@ exports:
 **/
 
 (() => {
+"use strict";
 
 ;// CONCATENATED MODULE: ./src/refs/root.ts
 var root = typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : ({});
@@ -41,40 +42,6 @@ function getRoot() {
 var production = true;
 function isProduction() {
     return production;
-}
-
-;// CONCATENATED MODULE: ./src/core/event-dispatcher.ts
-class EventDispatcher {
-    constructor() {
-        this.__listeners_ = ({});
-    }
-    addEventListener(type, listener) {
-        if (this.__listeners_[type] === undefined) {
-            this.__listeners_[type] = new Map();
-        }
-        if (typeof (this.__listeners_[type].get(listener)) !== 'function') {
-            this.__listeners_[type].set(listener, listener);
-        }
-    }
-    hasEventListener(type, listener) {
-        try {
-            return this.__listeners_[type].get(listener) ? true : false;
-        }
-        catch (err) {
-            return false;
-        }
-    }
-    removeEventListener(type, listener) {
-        if (this.hasEventListener(type, listener)) {
-            this.__listeners_[type].delete(listener);
-        }
-    }
-    dispatchEvent(type, event) {
-        const procs = this.__listeners_[type];
-        for (const proc of procs) {
-            proc[1].apply(null, [event]);
-        }
-    }
 }
 
 ;// CONCATENATED MODULE: ./src/core/subscription.ts
@@ -323,7 +290,11 @@ class AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/behavior-subject.ts
+const type = 'BehaviorSubject';
 class BehaviorSubject extends AObservable {
+    get type() {
+        return type;
+    }
     constructor(value) {
         super();
         this._observeAfterSubscription = true;
@@ -346,11 +317,15 @@ class BehaviorSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/promised-subject.ts
+const promised_subject_type = 'PromisedSubject';
 class PromisedSubject extends AObservable {
     constructor() {
         super();
         this._observeAfterSubscription = false;
         this._promise = null;
+    }
+    get type() {
+        return promised_subject_type;
     }
     dispatchEvent(value) { }
     getPromise() {
@@ -387,7 +362,11 @@ class PromisedSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/single-subject.ts
+const single_subject_type = 'SingleSubject';
 class SingleSubject extends AObservable {
+    get type() {
+        return single_subject_type;
+    }
     constructor() {
         super();
         this._observeAfterSubscription = false;
@@ -415,7 +394,11 @@ class SingleSubject extends AObservable {
 }
 
 ;// CONCATENATED MODULE: ./src/core/subject.ts
+const subject_type = 'Subject';
 class Subject extends AObservable {
+    get type() {
+        return subject_type;
+    }
     constructor() {
         super();
         this._observeAfterSubscription = false;
@@ -565,13 +548,12 @@ Operators.filter = filter;
 Operators.map = map;
 class ObservablePattern {
 }
-ObservablePattern.EventDispatcher = EventDispatcher;
 ObservablePattern.Operators = Operators;
 ObservablePattern.Subscription = Subscription;
+ObservablePattern.Subject = Subject;
 ObservablePattern.BehaviorSubject = BehaviorSubject;
 ObservablePattern.PromisedSubject = PromisedSubject;
 ObservablePattern.SingleSubject = SingleSubject;
-ObservablePattern.Subject = Subject;
 const Api = ObservablePattern;
 
 ;// CONCATENATED MODULE: ./src/index.js

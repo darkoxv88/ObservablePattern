@@ -130,6 +130,8 @@ declare abstract class AObservable<T> implements IObservable<T>, IOnDestroy {
 
 declare class Subject<T> extends AObservable<T> {
 
+  public get type(): 'Subject';
+
   constructor();
 
   public dispatchEvent(value: T): void;
@@ -138,6 +140,8 @@ declare class Subject<T> extends AObservable<T> {
 
 declare class BehaviorSubject<T> extends AObservable<T> {
 
+  public get type(): 'BehaviorSubject';
+
   constructor(value: T);
 
   public dispatchEvent(value: T): void;
@@ -145,6 +149,8 @@ declare class BehaviorSubject<T> extends AObservable<T> {
 }
 
 declare class PromisedSubject<T> extends AObservable<T> {
+
+  public get type(): 'PromisedSubject';
 
   constructor();
 
@@ -155,6 +161,8 @@ declare class PromisedSubject<T> extends AObservable<T> {
 }
 
 declare class SingleSubject<T> extends AObservable<T> {
+
+  public get type(): 'SingleSubject';
 
   constructor();
 
@@ -171,7 +179,6 @@ declare class Operators {
 }
 
 export declare class ObservablePattern {
-  public static EventDispatcher: typeof EventDispatcher;
   public static Operators: typeof Operators;
   public static Subscription: typeof Subscription;
   public static Subject: typeof Subject;
@@ -179,5 +186,3 @@ export declare class ObservablePattern {
   public static PromisedSubject: typeof PromisedSubject;
   public static SingleSubject: typeof SingleSubject;
 }
-
-

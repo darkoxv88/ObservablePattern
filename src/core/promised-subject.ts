@@ -1,6 +1,12 @@
 import { AObservable } from "./a-observable";
 
+const type = 'PromisedSubject';
+
 export class PromisedSubject<T> extends AObservable<T> {
+
+  public get type(): 'PromisedSubject' {
+    return type;
+  }
 
   private _promise: Promise<T>;
 

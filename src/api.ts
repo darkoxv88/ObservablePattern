@@ -1,5 +1,3 @@
-import { EventDispatcher } from './core/event-dispatcher';
-
 import { Subscription } from './core/subscription';
 import { BehaviorSubject } from './core/behavior-subject';
 import { PromisedSubject } from './core/promised-subject';
@@ -21,7 +19,6 @@ class Operators {
 }
 
 class ObservablePattern {
-  public static EventDispatcher: typeof EventDispatcher = EventDispatcher;
   public static Operators: typeof Operators = Operators;
   public static Subscription: typeof Subscription = Subscription;
   public static Subject: typeof Subject = Subject;

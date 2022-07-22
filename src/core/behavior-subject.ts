@@ -1,6 +1,12 @@
 import { AObservable } from "./a-observable";
 
+const type = 'BehaviorSubject';
+
 export class BehaviorSubject<T> extends AObservable<T> {
+
+  public get type(): 'BehaviorSubject' {
+    return type;
+  }
 
   constructor(value: T) {
     super();
